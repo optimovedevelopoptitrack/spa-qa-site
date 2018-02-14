@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
+import { Event, events } from '../entities/event';
 
 @Component({
   selector: 'app-event-details',
@@ -7,9 +11,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventDetailsComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  event: Event;
 
-  ngOnInit() {
+  constructor(
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
+
+  ngOnInit(): void {
+    this.getEvent();
+  }
+
+  getEvent(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.event = events[id];
   }
 
 }
