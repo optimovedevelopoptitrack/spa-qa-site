@@ -1,0 +1,15 @@
+.login-card {
+  max-width: 400px;
+  margin: 64px auto;
+}
+
+.login-fields-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-message {
+  text-align: center;
+  color: red;
+  width: 100%;
+}
