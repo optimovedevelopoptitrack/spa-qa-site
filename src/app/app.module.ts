@@ -12,7 +12,8 @@ import {
   MatButtonModule,
   MatIconModule,
   MatInputModule,
-  MatCardModule
+  MatCardModule,
+  MatGridListModule
 } from '@angular/material';
 
 // === Local Components === //
@@ -41,7 +42,8 @@ import { HomeComponent } from './home/home.component';
     MatButtonModule,
     MatIconModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
