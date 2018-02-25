@@ -2,7 +2,7 @@ declare global {
   interface Window {
     optimoveSDK: any;
     CustomString: string;
-  };
+  }
 };
 
 export class OptimoveSDK {
@@ -33,13 +33,13 @@ export class OptimoveSDK {
     window.CustomString = "TypeScript";
     if(typeof window['optimoveSDK'] != 'undefined'){
       window.optimoveSDK.initialize(token, configVersion, function(status){
-        this.onSDKInitialized(status);
+        OptimoveSDK.onSDKInitialized(status);
       }, 'info');
     }
 
   }
 
-  public onSDKInitialized(status: boolean) {
+  static  onSDKInitialized(status: boolean) {
     console.log(`testing my call back status = ${status}`);
 
     let url : string = self.document.location.href;
@@ -52,6 +52,5 @@ export class OptimoveSDK {
 
     window.optimoveSDK.API.setPageVisit( window.location.href, pageTitle, 'mycategory');
   }
-
 
 }
