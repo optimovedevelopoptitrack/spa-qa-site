@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import * as SDK from '../OptimoveSDK/OptimoveSDK';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   onLogin() {
