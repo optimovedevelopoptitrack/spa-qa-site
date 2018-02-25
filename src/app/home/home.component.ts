@@ -1,3 +1,10 @@
+declare global {
+  interface Window {
+    optimoveSDK: any;
+
+  }
+};
+
 import { Component, OnInit } from '@angular/core';
 import * as SDK from '../OptimoveSDK/OptimoveSDK';
 
@@ -8,9 +15,12 @@ import * as SDK from '../OptimoveSDK/OptimoveSDK';
 })
 export class HomeComponent implements OnInit {
   static isLoaded: boolean;
-protected optimoveSDK = new SDK.OptimoveSDK();
+protected static optimoveSDK: SDK.OptimoveSDK = null;
   constructor() {
     HomeComponent.isLoaded = false;
+    if(HomeComponent.optimoveSDK === null){
+      HomeComponent.optimoveSDK = new SDK.OptimoveSDK();
+    }
   }
 
   static Initialize() {
@@ -19,9 +29,12 @@ protected optimoveSDK = new SDK.OptimoveSDK();
   }
 
   ngOnInit() {
+    if( SDK.OptimoveSDK.wasInitialized === true){
+      SDK.OptimoveSDK.SetPageVisit('HOME','HOME','HOME' );
+    }
 
-  if(HomeComponent.isLoaded === false){
-    this.optimoveSDK.loadJSResourc('http://sdk-cdn.optimove.net/websdk/sdk-v1.0.4.js', this.optimoveSDK.onLoadSDK);
+  if(HomeComponent.isLoaded === false ){
+
     HomeComponent.isLoaded = true;
   }
 

@@ -17,7 +17,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    if( SDK.OptimoveSDK.wasInitialized === true){
+      SDK.OptimoveSDK.SetPageVisit( 'HOME','HOME','HOME' );
+    }
   }
 
   onLogin() {

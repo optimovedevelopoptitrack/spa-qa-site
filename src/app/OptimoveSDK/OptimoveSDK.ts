@@ -1,18 +1,20 @@
 declare global {
   interface Window {
     optimoveSDK: any;
-    CustomString: string;
+
   }
-};
+}
+;
 
 export class OptimoveSDK {
+  protected static sdkWin: Window;
+  public static wasInitialized: boolean = false;
 
-
-  constructor(){
+  constructor() {
 
   }
 
-  public loadJSResourc(resourceURL: string, callback) {
+  static loadJSResourc(resourceURL: string, callback) {
     if (resourceURL != null) {
       const d = document;
       const g = d.createElement('script');
@@ -26,31 +28,65 @@ export class OptimoveSDK {
     }
   };
 
-  public  onLoadSDK() {
+  static onLoadSDK() {
     console.log('called onSDKLoad');
-    const token:string= 'QA';
-    const configVersion :string= '1.0.1';
-    window.CustomString = "TypeScript";
-    if(typeof window['optimoveSDK'] != 'undefined'){
-      window.optimoveSDK.initialize(token, configVersion, function(status){
+    const token: string = 'QA';
+    const configVersion: string = '1.0.1';
+
+    if (typeof window.optimoveSDK != 'undefined') {
+      OptimoveSDK.sdkWin = window;
+      window.optimoveSDK.initialize(token, configVersion, function (status) {
         OptimoveSDK.onSDKInitialized(status);
       }, 'info');
     }
 
   }
 
-  static  onSDKInitialized(status: boolean) {
-    console.log(`testing my call back status = ${status}`);
+  static onSDKInitialized(status: boolean) {
+    console.log(`onSDKInitialized : wasInitialized= ${status}`);
 
-    let url : string = self.document.location.href;
-    let host: string =  self.document.location.origin;
-    let splited : string[]=  url.split(host);
-    let pageName : string= splited[1];
-    let pageTitle : string = pageName.slice(1, pageName.length);
-    if(pageTitle == "")
-      pageTitle = "Home - Hackathon Starter";
+    OptimoveSDK.wasInitialized = status;
+    // let url : string = self.document.location.href;
+    // let host: string =  self.document.location.origin;
+    // let splited : string[]=  url.split(host);
+    // let pageName : string= splited[1];
+    // let pageTitle : string = pageName.slice(1, pageName.length);
+    // if(pageTitle == "")
+    //   pageTitle = "Home - Hackathon Starter";
+    //
 
-    window.optimoveSDK.API.setPageVisit( window.location.href, pageTitle, 'mycategory');
   }
 
+
+  static InitalizeStatic(): void {
+
+    if (OptimoveSDK.wasInitialized === false && typeof window.optimoveSDK === 'undefined') {
+
+      OptimoveSDK.loadJSResourc('http://sdk-cdn.optimove.net/websdk/sdk-v1.0.4.js', this.onLoadSDK);
+
+    }
+  }
+
+
+  public static SetPageVisit(url: string, name: string, catgory: string): void {
+    if (typeof window.optimoveSDK != 'undefined') {
+      window.optimoveSDK.API.setPageVisit(window.location.href, 'start', 'mycategory');
+    }
+  }
+
+
+  public static ReportEvent(eventName: string, parametrs: any): void {
+    if (typeof window.optimoveSDK != 'undefined') {
+      OptimoveSDK.sdkWin.optimoveSDK.API.reportEvent(eventName, parametrs);
+    }
+  }
+
+
+  public static SetUserId(eventName: string, parametrs: any): void {
+    if (typeof window.optimoveSDK != 'undefined') {
+      OptimoveSDK.sdkWin.optimoveSDK.API.setUserId(eventName, parametrs);
+    }
+  }
 }
+
+OptimoveSDK.InitalizeStatic();
