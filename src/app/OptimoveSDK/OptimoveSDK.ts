@@ -35,7 +35,7 @@ export class OptimoveSDK {
   static onLoadSDK() {
     console.log('called onSDKLoad');
     const token: string = 'QA';
-    const configVersion: string = '1.0.1';
+    const configVersion: string = 'qa-spa.1.0.1';
 
     if (typeof window.optimoveSDK != 'undefined') {
       OptimoveSDK.sdkWin = window;

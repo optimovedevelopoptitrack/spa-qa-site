@@ -26,10 +26,10 @@ export class EventsComponent implements OnInit {
     }
   }
 
-  OnEvent(event: string) {
-    console.log(event);
+  OnEvent(name: string) {
+    console.log(name);
     let num : number;
-    switch(event){
+    switch(name){
       case 'One':
         num = 1;
         break;
@@ -44,7 +44,7 @@ export class EventsComponent implements OnInit {
         break;
     }
     if (SDK.OptimoveSDK.wasInitialized === true) {
-      SDK.OptimoveSDK.ReportEvent('Event1', { 'action_name': 'color', 'action_value': num, 'action_price': num});
+      SDK.OptimoveSDK.ReportEvent('set_tile_event', { 'tile_index': num, 'tile_name': name});
     }
   }
 
