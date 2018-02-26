@@ -4,6 +4,6 @@
         [colspan]="tile.cols"
         [rowspan]="tile.rows"
         [style.background]="tile.color">
-      <button mat-button class="mat-typography event-tile">{{tile.text}}</button>
+      <button mat-button class="mat-typography event-tile" (click)="OnEvent(tile.text)">{{tile.text}}</button>
     </mat-grid-tile>
   </mat-grid-list>

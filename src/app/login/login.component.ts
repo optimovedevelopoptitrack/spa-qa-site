@@ -17,8 +17,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    if( SDK.OptimoveSDK.wasInitialized === true){
-      SDK.OptimoveSDK.SetPageVisit( 'HOME','HOME','HOME' );
+
+
+    if (SDK.OptimoveSDK.wasInitialized === true) {
+      SDK.OptimoveSDK.SetPageVisit(window.location.href, 'Login', 'Login');
     }
   }
 
@@ -30,5 +32,8 @@ export class LoginComponent implements OnInit {
     }
     this.loginError = false;
     // Perform Login
+    if (SDK.OptimoveSDK.wasInitialized === true) {
+      SDK.OptimoveSDK.SetUserId(this.email);
+    }
   }
 }
